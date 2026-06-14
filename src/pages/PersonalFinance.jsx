@@ -186,347 +186,357 @@ const PersonalFinance = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header Section */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4">
-          <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-              My Wallet
-            </h1>
-            <p className="text-gray-400 mt-1">Manage and track your personal finances</p>
-          </div>
-          <button
-            onClick={handleOpenCreate}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25"
-          >
-            <Plus className="w-4 h-4" />
-            Add Transaction
-          </button>
+    <div className="space-y-6">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4">
+        <div>
+          <h1 className="text-4xl font-extrabold text-themeText">
+            My Wallet
+          </h1>
+          <p className="text-themeTextSecondary mt-1">Manage and track your personal finances</p>
         </div>
+        <button
+          onClick={handleOpenCreate}
+          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-zinc to-zincLight hover:from-zincLight hover:to-zinc text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-md shadow-zinc/20 cursor-pointer"
+        >
+          <Plus className="w-4 h-4" />
+          Add Transaction
+        </button>
+      </div>
 
-        {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="group relative overflow-hidden bg-gradient-to-br from-emerald-950/30 to-emerald-900/20 backdrop-blur-xl rounded-2xl border border-emerald-500/20 p-6 hover:border-emerald-500/40 transition-all duration-300">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
-            <div className="relative flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold uppercase tracking-wider text-emerald-400">Total Income</span>
-              <TrendingUp className="w-6 h-6 text-emerald-400" />
-            </div>
-            <div className="relative">
-              <span className="text-3xl font-bold text-emerald-400">₹{summary.totalIncomeINR.toLocaleString()}</span>
-            </div>
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="group relative overflow-hidden bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-2xl shadow-sm hover:border-emerald-500/40 transition-all duration-300">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
+          <div className="relative flex items-center justify-between mb-3">
+            <span className="text-sm font-semibold uppercase tracking-wider text-emerald-500 dark:text-emerald-400">Total Income</span>
+            <TrendingUp className="w-6 h-6 text-emerald-400" />
           </div>
-
-          <div className="group relative overflow-hidden bg-gradient-to-br from-rose-950/30 to-rose-900/20 backdrop-blur-xl rounded-2xl border border-rose-500/20 p-6 hover:border-rose-500/40 transition-all duration-300">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 rounded-full blur-2xl group-hover:bg-rose-500/20 transition-all"></div>
-            <div className="relative flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold uppercase tracking-wider text-rose-400">Total Expenses</span>
-              <TrendingDown className="w-6 h-6 text-rose-400" />
-            </div>
-            <div className="relative">
-              <span className="text-3xl font-bold text-rose-400">₹{summary.totalExpenseINR.toLocaleString()}</span>
-            </div>
-          </div>
-
-          <div className={`group relative overflow-hidden backdrop-blur-xl rounded-2xl border p-6 transition-all duration-300 ${
-            summary.netBalanceINR >= 0 
-              ? 'bg-gradient-to-br from-cyan-950/30 to-cyan-900/20 border-cyan-500/20 hover:border-cyan-500/40'
-              : 'bg-gradient-to-br from-rose-950/30 to-rose-900/20 border-rose-500/20 hover:border-rose-500/40'
-          }`}>
-            <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl transition-all ${
-              summary.netBalanceINR >= 0 ? 'bg-cyan-500/10 group-hover:bg-cyan-500/20' : 'bg-rose-500/10 group-hover:bg-rose-500/20'
-            }`}></div>
-            <div className="relative flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold uppercase tracking-wider text-gray-400">Net Balance</span>
-              <Wallet className={`w-6 h-6 ${summary.netBalanceINR >= 0 ? 'text-cyan-400' : 'text-rose-400'}`} />
-            </div>
-            <div className="relative">
-              <span className={`text-3xl font-bold ${summary.netBalanceINR >= 0 ? 'text-cyan-400' : 'text-rose-400'}`}>
-                ₹{summary.netBalanceINR.toLocaleString()}
-              </span>
-            </div>
+          <div className="relative">
+            <span className="text-3xl font-extrabold text-emerald-500 dark:text-emerald-400">₹{summary.totalIncomeINR.toLocaleString()}</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Filters Panel */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-6 space-y-4">
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden w-full flex items-center justify-between glass-panel p-4"
-              >
-                <span className="font-semibold text-white">Filters</span>
-                <ChevronDown className={`w-5 h-5 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
-              </button>
-              
-              <div className={`glass-panel p-5 space-y-5 ${showFilters ? 'block' : 'hidden lg:block'}`}>
-                <div className="flex items-center justify-between border-b border-gray-800 pb-3">
-                  <h3 className="font-bold text-white flex items-center gap-2">
-                    <Filter className="w-4 h-4" />
-                    Filters
-                  </h3>
-                  <button
-                    onClick={handleResetFilters}
-                    className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
-                  >
-                    Reset All
-                  </button>
-                </div>
-
-                {/* Search */}
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
-                    Search
-                  </label>
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-                    <input
-                      type="text"
-                      placeholder="Search description or category..."
-                      className="w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 text-sm"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                {/* Type Filter */}
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
-                    Transaction Type
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {['ALL', 'INCOME', 'EXPENSE'].map(type => (
-                      <button
-                        key={type}
-                        type="button"
-                        onClick={() => setFilterType(type)}
-                        className={`py-2 rounded-xl text-center font-semibold text-xs transition-all duration-200 ${
-                          filterType === type 
-                            ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg'
-                            : 'bg-gray-800/50 text-gray-400 hover:bg-gray-800 border border-gray-700'
-                        }`}
-                      >
-                        {type}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Category Filter */}
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
-                    Category
-                  </label>
-                  <select
-                    className="w-full px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 text-sm"
-                    value={filterCategory}
-                    onChange={(e) => setFilterCategory(e.target.value)}
-                  >
-                    <option value="">All Categories</option>
-                    {Object.values(DEFAULT_CATEGORIES).flat().map(cat => (
-                      <option key={cat} value={cat}>{cat}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Date Range */}
-                <div className="space-y-3">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400">
-                    Date Range
-                  </label>
-                  <div>
-                    <input
-                      type="date"
-                      className="w-full px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 text-sm"
-                      value={filterStartDate}
-                      onChange={(e) => setFilterStartDate(e.target.value)}
-                      placeholder="Start Date"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="date"
-                      className="w-full px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 text-sm"
-                      value={filterEndDate}
-                      onChange={(e) => setFilterEndDate(e.target.value)}
-                      placeholder="End Date"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Category Breakdown */}
-              {totalBaseAmount > 0 && (
-                <div className="glass-panel p-5 space-y-4">
-                  <h3 className="font-bold text-white flex items-center gap-2">
-                    <PieChart className="w-4 h-4" />
-                    Spending by Category
-                  </h3>
-                  <div className="space-y-3">
-                    {Object.entries(categoryTotals)
-                      .sort((a, b) => b[1] - a[1])
-                      .slice(0, 5)
-                      .map(([cat, amt]) => {
-                        const Icon = getCategoryIcon(cat);
-                        const pct = Math.round((amt / totalBaseAmount) * 100);
-                        return (
-                          <div key={cat} className="space-y-1">
-                            <div className="flex items-center justify-between text-xs">
-                              <div className="flex items-center gap-2">
-                                <Icon className="w-3 h-3 text-cyan-400" />
-                                <span className="font-semibold text-gray-300">{cat}</span>
-                              </div>
-                              <span className="text-gray-400">₹{amt.toLocaleString()} ({pct}%)</span>
-                            </div>
-                            <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
-                              <div 
-                                className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-500"
-                                style={{ width: `${pct}%` }}
-                              ></div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                  </div>
-                </div>
-              )}
-            </div>
+        <div className="group relative overflow-hidden bg-rose-500/5 dark:bg-rose-500/10 border border-rose-500/20 p-6 rounded-2xl shadow-sm hover:border-rose-500/40 transition-all duration-300">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 rounded-full blur-2xl group-hover:bg-rose-500/20 transition-all"></div>
+          <div className="relative flex items-center justify-between mb-3">
+            <span className="text-sm font-semibold uppercase tracking-wider text-rose-500 dark:text-rose-400">Total Expenses</span>
+            <TrendingDown className="w-6 h-6 text-rose-400" />
           </div>
+          <div className="relative">
+            <span className="text-3xl font-extrabold text-rose-500 dark:text-rose-400">₹{summary.totalExpenseINR.toLocaleString()}</span>
+          </div>
+        </div>
 
-          {/* Transactions List */}
-          <div className="lg:col-span-3 space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-white">Transaction History</h2>
-              <span className="text-sm text-gray-400">{filteredTransactions.length} transactions</span>
-            </div>
+        <div className={`group relative overflow-hidden p-6 rounded-2xl border shadow-sm transition-all duration-300 ${
+          summary.netBalanceINR >= 0 
+            ? 'bg-zinc/5 border-zinc/20 hover:border-zinc/40'
+            : 'bg-rose-500/5 border-rose-500/20 hover:border-rose-500/40'
+        }`}>
+          <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl transition-all ${
+            summary.netBalanceINR >= 0 ? 'bg-zinc/10 group-hover:bg-zinc/20' : 'bg-rose-500/10 group-hover:bg-rose-500/20'
+          }`}></div>
+          <div className="relative flex items-center justify-between mb-3">
+            <span className="text-sm font-semibold uppercase tracking-wider text-themeTextSecondary">Net Balance</span>
+            <Wallet className={`w-6 h-6 ${summary.netBalanceINR >= 0 ? 'text-zinc' : 'text-rose-500'}`} />
+          </div>
+          <div className="relative">
+            <span className={`text-3xl font-extrabold ${summary.netBalanceINR >= 0 ? 'text-zinc' : 'text-rose-500'}`}>
+              ₹{summary.netBalanceINR.toLocaleString()}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Filters Panel */}
+        <div className="lg:col-span-1">
+          <div className="sticky top-6 space-y-4">
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="lg:hidden w-full flex items-center justify-between glass-panel p-4 cursor-pointer"
+            >
+              <span className="font-semibold text-themeText">Filters</span>
+              <ChevronDown className={`w-5 h-5 text-themeTextSecondary transition-transform ${showFilters ? 'rotate-180' : ''}`} />
+            </button>
             
-            {loading ? (
-              <div className="flex justify-center items-center py-20">
-                <div className="w-12 h-12 border-4 border-gray-700 border-t-cyan-500 rounded-full animate-spin"></div>
-              </div>
-            ) : filteredTransactions.length === 0 ? (
-              <div className="glass-panel text-center py-16">
-                <Wallet className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                <p className="text-gray-400">No transactions found</p>
+            <div className={`glass-panel p-5 space-y-5 ${showFilters ? 'block' : 'hidden lg:block'}`}>
+              <div className="flex items-center justify-between border-b border-themeBorder pb-3">
+                <h3 className="font-bold text-themeText flex items-center gap-2">
+                  <Filter className="w-4 h-4 text-zinc" />
+                  Filters
+                </h3>
                 <button
-                  onClick={handleOpenCreate}
-                  className="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold"
+                  onClick={handleResetFilters}
+                  className="text-xs font-semibold text-zinc hover:text-zincLight transition-colors cursor-pointer"
                 >
-                  Add your first transaction →
+                  Reset All
                 </button>
               </div>
-            ) : (
+
+              {/* Search */}
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-themeTextSecondary mb-2">
+                  Search
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-themeTextSecondary" />
+                  <input
+                    type="text"
+                    placeholder="Search description or category..."
+                    className="w-full pl-10 pr-4 py-2 bg-themeSurfaceVariant/50 border border-themeBorder rounded-xl text-themeText placeholder-themeTextSecondary/50 focus:outline-none focus:border-zinc text-sm"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Type Filter */}
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-themeTextSecondary mb-2">
+                  Transaction Type
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {['ALL', 'INCOME', 'EXPENSE'].map(type => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setFilterType(type)}
+                      className={`py-2 rounded-xl text-center font-semibold text-xs transition-all duration-200 cursor-pointer ${
+                        filterType === type 
+                          ? 'bg-gradient-to-r from-zinc to-zincLight text-white shadow-md'
+                          : 'bg-themeSurfaceVariant/55 text-themeTextSecondary hover:text-themeText border border-themeBorder'
+                      }`}
+                    >
+                      {type}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Category Filter */}
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-themeTextSecondary mb-2">
+                  Category
+                </label>
+                <select
+                  className="w-full px-4 py-2 bg-themeSurfaceVariant/50 border border-themeBorder rounded-xl text-themeText focus:outline-none focus:border-zinc text-sm outline-none"
+                  value={filterCategory}
+                  onChange={(e) => setFilterCategory(e.target.value)}
+                >
+                  <option value="">All Categories</option>
+                  {Object.values(DEFAULT_CATEGORIES).flat().map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Date Range */}
               <div className="space-y-3">
-                {filteredTransactions.map(tx => {
-                  const Icon = getCategoryIcon(tx.category);
-                  return (
-                    <div key={tx.id} className="group glass-panel p-4 hover:bg-gray-800/40 transition-all duration-300">
-                      <div className="flex items-center justify-between gap-4">
-                        <div className="flex items-center space-x-4 flex-1">
-                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center border-2 transition-all group-hover:scale-110 ${
-                            tx.type === 'INCOME' 
-                              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' 
-                              : 'bg-rose-500/10 border-rose-500/30 text-rose-400'
-                          }`}>
-                            {tx.type === 'INCOME' ? (
-                              <ArrowUpCircle className="w-6 h-6" />
-                            ) : (
-                              <ArrowDownCircle className="w-6 h-6" />
-                            )}
-                          </div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-themeTextSecondary">
+                  Date Range
+                </label>
+                <div>
+                  <input
+                    type="date"
+                    className="w-full px-4 py-2 bg-themeSurfaceVariant/50 border border-themeBorder rounded-xl text-themeText focus:outline-none focus:border-zinc text-sm outline-none"
+                    value={filterStartDate}
+                    onChange={(e) => setFilterStartDate(e.target.value)}
+                    placeholder="Start Date"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="date"
+                    className="w-full px-4 py-2 bg-themeSurfaceVariant/50 border border-themeBorder rounded-xl text-themeText focus:outline-none focus:border-zinc text-sm outline-none"
+                    value={filterEndDate}
+                    onChange={(e) => setFilterEndDate(e.target.value)}
+                    placeholder="End Date"
+                  />
+                </div>
+              </div>
+            </div>
 
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <h3 className="font-bold text-white">{tx.description || 'Untitled'}</h3>
-                              <span className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-gray-800/80 text-gray-300">
-                                <Icon className="w-3 h-3" />
-                                {tx.category}
-                              </span>
+            {/* Category Breakdown */}
+            {totalBaseAmount > 0 && (
+              <div className="glass-panel p-5 space-y-4">
+                <h3 className="font-bold text-themeText flex items-center gap-2">
+                  <PieChart className="w-4 h-4 text-zinc" />
+                  Spending by Category
+                </h3>
+                <div className="space-y-3">
+                  {Object.entries(categoryTotals)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5)
+                    .map(([cat, amt]) => {
+                      const Icon = getCategoryIcon(cat);
+                      const pct = Math.round((amt / totalBaseAmount) * 100);
+                      return (
+                        <div key={cat} className="space-y-1">
+                          <div className="flex items-center justify-between text-xs">
+                            <div className="flex items-center gap-2">
+                              <Icon className="w-3 h-3 text-zinc" />
+                              <span className="font-semibold text-themeTextSecondary">{cat}</span>
                             </div>
-                            <div className="flex items-center gap-3 mt-1">
-                              <span className="text-xs text-gray-500 flex items-center gap-1">
-                                <Calendar className="w-3 h-3" />
-                                {new Date(tx.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                              </span>
-                            </div>
+                            <span className="text-themeText font-semibold">₹{amt.toLocaleString()} ({pct}%)</span>
+                          </div>
+                          <div className="w-full h-2 bg-themeSurfaceVariant rounded-full overflow-hidden">
+                            <div 
+                              className="h-full rounded-full bg-gradient-to-r from-zinc to-zincLight transition-all duration-500"
+                              style={{ width: `${pct}%` }}
+                            ></div>
                           </div>
                         </div>
-
-                        <div className="flex items-center gap-4">
-                          <div className="text-right">
-                            <span className={`block font-bold text-lg ${
-                              tx.type === 'INCOME' ? 'text-emerald-400' : 'text-rose-400'
-                            }`}>
-                              {tx.type === 'INCOME' ? '+' : '-'}
-                              {tx.currency === 'USD' ? '$' : '₹'}{Number(tx.amount).toLocaleString()}
-                            </span>
-                            {tx.currency === 'USD' && (
-                              <span className="block text-xs text-gray-500">
-                                ₹{Number(tx.baseAmountINR).toLocaleString()}
-                              </span>
-                            )}
-                          </div>
-
-                          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button
-                              onClick={() => handleOpenEdit(tx)}
-                              className="p-2 text-gray-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-all"
-                              title="Edit"
-                            >
-                              <Edit2 className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={() => handleDelete(tx.id)}
-                              className="p-2 text-gray-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-all"
-                              title="Delete"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+                      );
+                    })}
+                </div>
               </div>
             )}
           </div>
+        </div>
+
+        {/* Transactions List */}
+        <div className="lg:col-span-3 space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold text-themeText">Transaction History</h2>
+            <span className="text-sm text-themeTextSecondary">{filteredTransactions.length} transactions</span>
+          </div>
+          
+          {loading ? (
+            /* Skeleton Loader list */
+            <div className="space-y-3">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="glass-panel p-4 animate-pulse flex items-center justify-between">
+                  <div className="flex items-center space-x-4 flex-1">
+                    <div className="w-12 h-12 rounded-xl bg-themeSurfaceVariant"></div>
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-themeSurfaceVariant rounded w-1/3"></div>
+                      <div className="h-3 bg-themeSurfaceVariant rounded w-1/4"></div>
+                    </div>
+                  </div>
+                  <div className="h-6 bg-themeSurfaceVariant rounded w-16"></div>
+                </div>
+              ))}
+            </div>
+          ) : filteredTransactions.length === 0 ? (
+            <div className="glass-panel text-center py-16">
+              <Wallet className="w-16 h-16 text-themeTextSecondary mx-auto mb-4" />
+              <p className="text-themeTextSecondary">No transactions found</p>
+              <button
+                onClick={handleOpenCreate}
+                className="mt-4 text-zinc hover:text-zincLight font-semibold cursor-pointer"
+              >
+                Add your first transaction →
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {filteredTransactions.map(tx => {
+                const Icon = getCategoryIcon(tx.category);
+                return (
+                  <div key={tx.id} className="group glass-panel p-4 hover:bg-themeSurfaceVariant/45 transition-all duration-300">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center space-x-4 flex-1">
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center border transition-all group-hover:scale-110 ${
+                          tx.type === 'INCOME' 
+                            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500 dark:text-emerald-400' 
+                            : 'bg-rose-500/10 border-rose-500/20 text-rose-500 dark:text-rose-400'
+                        }`}>
+                          {tx.type === 'INCOME' ? (
+                            <ArrowUpCircle className="w-6 h-6" />
+                          ) : (
+                            <ArrowDownCircle className="w-6 h-6" />
+                          )}
+                        </div>
+
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <h3 className="font-bold text-themeText">{tx.description || 'Untitled'}</h3>
+                            <span className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-themeSurfaceVariant border border-themeBorder text-themeTextSecondary">
+                              <Icon className="w-3 h-3 text-zinc" />
+                              {tx.category}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-3 mt-1">
+                            <span className="text-xs text-themeTextSecondary flex items-center gap-1">
+                              <Calendar className="w-3 h-3 text-zinc" />
+                              {new Date(tx.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4">
+                        <div className="text-right">
+                          <span className={`block font-bold text-lg ${
+                            tx.type === 'INCOME' ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400'
+                          }`}>
+                            {tx.type === 'INCOME' ? '+' : '-'}
+                            {tx.currency === 'USD' ? '$' : '₹'}{Number(tx.amount).toLocaleString()}
+                          </span>
+                          {tx.currency === 'USD' && (
+                            <span className="block text-xs text-themeTextSecondary">
+                              ₹{Number(tx.baseAmountINR).toLocaleString()}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-1 md:opacity-0 group-hover:opacity-100 transition-opacity">
+                          <button
+                            onClick={() => handleOpenEdit(tx)}
+                            className="p-2 text-themeTextSecondary hover:text-zinc hover:bg-zinc/10 rounded-lg transition-all cursor-pointer"
+                            title="Edit"
+                          >
+                            <Edit2 className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(tx.id)}
+                            className="p-2 text-themeTextSecondary hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-all cursor-pointer"
+                            title="Delete"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-          <div className="glass-panel w-full max-w-md p-6 bg-gray-900/95 relative shadow-2xl rounded-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn">
+          <div className="glass-panel w-full max-w-md p-6 bg-themeSurface/95 border border-themeBorder relative shadow-2xl rounded-2xl animate-slideUp">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-themeText to-themeTextSecondary bg-clip-text text-transparent">
                 {editId ? 'Edit Transaction' : 'Add Transaction'}
               </h2>
               <button
                 onClick={() => setShowModal(false)}
-                className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+                className="p-2 hover:bg-themeSurfaceVariant rounded-lg transition-colors cursor-pointer text-themeTextSecondary"
               >
-                <X className="w-5 h-5 text-gray-400" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Type selector */}
               <div>
-                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-themeTextSecondary uppercase tracking-wider mb-2">
                   Transaction Type
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => setFormType('EXPENSE')}
-                    className={`py-3 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 ${
+                    className={`py-3 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
                       formType === 'EXPENSE'
-                        ? 'bg-gradient-to-r from-rose-600 to-rose-500 text-white shadow-lg'
-                        : 'bg-gray-800/50 text-gray-400 hover:bg-gray-800 border border-gray-700'
+                        ? 'bg-gradient-to-r from-rose-600 to-rose-500 text-white shadow-md'
+                        : 'bg-themeSurfaceVariant/55 text-themeTextSecondary hover:text-themeText border border-themeBorder'
                     }`}
                   >
                     <ArrowDownCircle className="w-4 h-4" />
@@ -535,10 +545,10 @@ const PersonalFinance = () => {
                   <button
                     type="button"
                     onClick={() => setFormType('INCOME')}
-                    className={`py-3 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 ${
+                    className={`py-3 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
                       formType === 'INCOME'
-                        ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-lg'
-                        : 'bg-gray-800/50 text-gray-400 hover:bg-gray-800 border border-gray-700'
+                        ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-md'
+                        : 'bg-themeSurfaceVariant/55 text-themeTextSecondary hover:text-themeText border border-themeBorder'
                     }`}
                   >
                     <ArrowUpCircle className="w-4 h-4" />
@@ -549,11 +559,11 @@ const PersonalFinance = () => {
 
               {/* Category */}
               <div>
-                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-themeTextSecondary uppercase tracking-wider mb-2">
                   Category
                 </label>
                 <select
-                  className="w-full px-4 py-2.5 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 bg-themeSurfaceVariant/50 border border-themeBorder rounded-xl text-themeText focus:outline-none focus:border-zinc outline-none"
                   value={formCategory}
                   onChange={(e) => setFormCategory(e.target.value)}
                 >
@@ -568,7 +578,7 @@ const PersonalFinance = () => {
               {/* Amount & Currency */}
               <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-2">
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-semibold text-themeTextSecondary uppercase tracking-wider mb-2">
                     Amount
                   </label>
                   <input
@@ -576,18 +586,18 @@ const PersonalFinance = () => {
                     step="0.01"
                     required
                     placeholder="0.00"
-                    className="w-full px-4 py-2.5 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2.5 bg-themeSurfaceVariant/50 border border-themeBorder rounded-xl text-themeText focus:outline-none focus:border-zinc outline-none"
                     value={formAmount}
                     onChange={(e) => setFormAmount(e.target.value)}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-semibold text-themeTextSecondary uppercase tracking-wider mb-2">
                     Currency
                   </label>
                   <select
-                    className="w-full px-4 py-2.5 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2.5 bg-themeSurfaceVariant/50 border border-themeBorder rounded-xl text-themeText focus:outline-none focus:border-zinc outline-none"
                     value={formCurrency}
                     onChange={(e) => setFormCurrency(e.target.value)}
                   >
@@ -600,14 +610,14 @@ const PersonalFinance = () => {
               {/* Exchange Rate */}
               {formCurrency === 'USD' && (
                 <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-semibold text-themeTextSecondary uppercase tracking-wider mb-2">
                     USD to INR Rate
                   </label>
                   <input
                     type="number"
                     step="0.01"
                     required
-                    className="w-full px-4 py-2.5 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2.5 bg-themeSurfaceVariant/50 border border-themeBorder rounded-xl text-themeText focus:outline-none focus:border-zinc outline-none"
                     value={formRate}
                     onChange={(e) => setFormRate(e.target.value)}
                   />
@@ -616,13 +626,13 @@ const PersonalFinance = () => {
 
               {/* Description */}
               <div>
-                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-themeTextSecondary uppercase tracking-wider mb-2">
                   Description
                 </label>
                 <input
                   type="text"
                   placeholder="e.g., Weekly groceries, Freelance payment"
-                  className="w-full px-4 py-2.5 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 bg-themeSurfaceVariant/50 border border-themeBorder rounded-xl text-themeText placeholder-themeTextSecondary/40 focus:outline-none focus:border-zinc outline-none"
                   value={formDesc}
                   onChange={(e) => setFormDesc(e.target.value)}
                 />
@@ -630,13 +640,13 @@ const PersonalFinance = () => {
 
               {/* Date */}
               <div>
-                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-themeTextSecondary uppercase tracking-wider mb-2">
                   Date
                 </label>
                 <input
                   type="date"
                   required
-                  className="w-full px-4 py-2.5 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 bg-themeSurfaceVariant/50 border border-themeBorder rounded-xl text-themeText focus:outline-none focus:border-zinc outline-none"
                   value={formDate}
                   onChange={(e) => setFormDate(e.target.value)}
                 />
@@ -647,13 +657,13 @@ const PersonalFinance = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 px-4 py-2.5 bg-gray-800/50 border border-gray-700 rounded-xl text-gray-300 hover:bg-gray-800 transition-all"
+                  className="flex-1 px-4 py-2.5 bg-themeSurface border border-themeBorder rounded-xl text-themeTextSecondary hover:text-themeText hover:bg-themeSurfaceVariant transition-all cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold rounded-xl transition-all"
+                  className="flex-1 px-4 py-2.5 bg-gradient-to-r from-zinc to-zincLight hover:from-zincLight hover:to-zinc text-white font-semibold rounded-xl transition-all cursor-pointer shadow-md shadow-zinc/25"
                 >
                   {editId ? 'Save Changes' : 'Add Transaction'}
                 </button>

@@ -7,10 +7,13 @@ const Protected = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-darkBg">
-        <div className="relative w-16 h-16">
-          <div className="absolute top-0 left-0 w-full h-full border-4 border-indigo-950 rounded-full"></div>
-          <div className="absolute top-0 left-0 w-full h-full border-4 border-accentCyan border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-themeBg transition-colors duration-200">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="relative w-14 h-14">
+            <div className="absolute inset-0 border-4 border-themeBorder rounded-full opacity-60"></div>
+            <div className="absolute inset-0 border-4 border-accentCyan border-t-transparent rounded-full animate-spin"></div>
+          </div>
+          <p className="text-sm font-semibold text-themeTextSecondary animate-pulse">Checking credentials...</p>
         </div>
       </div>
     );

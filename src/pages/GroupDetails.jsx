@@ -402,12 +402,13 @@ const GroupDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 flex items-center justify-center">
-        <div className="relative">
-          <div className="w-16 h-16 border-4 border-gray-800 border-t-cyan-500 rounded-full animate-spin"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Wallet className="w-6 h-6 text-cyan-500 animate-pulse" />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-themeBg transition-colors duration-200">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="relative w-14 h-14">
+            <div className="absolute inset-0 border-4 border-themeBorder rounded-full opacity-60"></div>
+            <div className="absolute inset-0 border-4 border-accentCyan border-t-transparent rounded-full animate-spin"></div>
           </div>
+          <p className="text-sm font-semibold text-themeTextSecondary animate-pulse">Loading group details...</p>
         </div>
       </div>
     );
@@ -424,7 +425,7 @@ const GroupDetails = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950">
+    <div className="min-h-screen bg-themeBg transition-colors duration-200">
       <div className="max-w-7xl mx-auto p-6 space-y-6">
         {/* Header Section */}
         <div className="bg-gray-900/60 backdrop-blur-xl rounded-2xl p-6 relative overflow-hidden border border-gray-700/50">
