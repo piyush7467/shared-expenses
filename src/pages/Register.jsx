@@ -15,7 +15,7 @@ const Register = () => {
   const { showToast } = useToast();
   const navigate = useNavigate();
 
-  const backendUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5000';
+  const backendUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'https://moneymap-backend.vercel.app';
 
   const handleSubmit = async (e) => {
     e.preventDefault();

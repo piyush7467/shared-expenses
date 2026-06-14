@@ -29,6 +29,8 @@ const GroupDetails = () => {
   const [settlements, setSettlements] = useState([]);
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
+  const loadingRef = useRef(true);
+  const isFirstSyncRef = useRef(true);
   const [copied, setCopied] = useState(false);
 
   const [activeTab, setActiveTab] = useState('expenses');
@@ -58,10 +60,19 @@ const GroupDetails = () => {
 
   const loadGroupData = async () => {
     try {
-      const memRes = await api.get(`/groups/${groupId}/members`);
+      // Parallelize fetches to prevent sequential network bottlenecks
+      const [memRes, myGroupsRes, expRes, balRes, sugRes, setRes, repRes] = await Promise.all([
+        api.get(`/groups/${groupId}/members`),
+        api.get('/groups/my-groups'),
+        api.get(`/expenses/group/${groupId}`),
+        api.get(`/balances/group/${groupId}`),
+        api.get(`/settlement-suggestions/group/${groupId}`),
+        api.get(`/settlements/group/${groupId}`),
+        api.get(`/import/reports/group/${groupId}`)
+      ]);
+
       setMemberships(memRes.data);
       
-      const myGroupsRes = await api.get('/groups/my-groups');
       const g = myGroupsRes.data.find(item => item.id === groupId);
       if (g) {
         setGroup(g);
@@ -69,19 +80,10 @@ const GroupDetails = () => {
         showToast('Group details could not be retrieved.', 'error');
       }
 
-      const expRes = await api.get(`/expenses/group/${groupId}`);
       setExpenses(expRes.data);
-
-      const balRes = await api.get(`/balances/group/${groupId}`);
       setBalances(balRes.data);
-
-      const sugRes = await api.get(`/settlement-suggestions/group/${groupId}`);
       setSuggestions(sugRes.data);
-
-      const setRes = await api.get(`/settlements/group/${groupId}`);
       setSettlements(setRes.data);
-
-      const repRes = await api.get(`/import/reports/group/${groupId}`);
       setReports(repRes.data);
 
     } catch (err) {
@@ -89,10 +91,13 @@ const GroupDetails = () => {
       showToast('Error loading group details.', 'error');
     } finally {
       setLoading(false);
+      loadingRef.current = false;
     }
   };
 
   useEffect(() => {
+    loadingRef.current = true;
+    setLoading(true);
     loadGroupData();
   }, [groupId]);
 
@@ -111,7 +116,13 @@ const GroupDetails = () => {
   useEffect(() => {
     if (!groupId) return;
 
+    // Reset sync flag on group ID change to prevent toast alert storm
+    isFirstSyncRef.current = true;
+
     const pollInterval = setInterval(async () => {
+      // Skip background sync checks while the page is running its initial load
+      if (loadingRef.current) return;
+
       try {
         const expRes = await api.get(`/expenses/group/${groupId}`);
         const setRes = await api.get(`/settlements/group/${groupId}`);
@@ -121,6 +132,12 @@ const GroupDetails = () => {
 
         const newExpenses = expRes.data;
         const newSettlements = setRes.data;
+
+        // Skip toast comparisons on the very first sync tick
+        if (isFirstSyncRef.current) {
+          isFirstSyncRef.current = false;
+          return;
+        }
 
         let hasChanges = false;
 
